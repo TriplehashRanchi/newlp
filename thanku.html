@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="facebook-domain-verification" content="7xedh3jy10vhocojima4edkyjlmd3u" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Successful | Triple Hash</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=switzer@200,300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+     
+ 
+    <style>
+      @font-face {
+        font-family: "Geomanist";
+        src: url("./public/font/geomanist-regular.woff2") format("woff2"),
+          url("./public/font/geomanist-regular.woff") format("woff");
+        font-style: normal;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        --cream: #fbf6ef;
+        --grad-dark: linear-gradient(155deg, #2a1640, #3d2160 60%, #4a2770);
+        --line: #ebe2d6;
+      }
+
+      body {
+        background-color: var(--cream);
+        background-image: radial-gradient(110% 80% at 88% -20%, #f3e7fb 0%, transparent 52%);
+        color: #6e5d77;
+        font-family: "Geomanist", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .main-container {
+        position: relative;
+        z-index: 1;
+        padding: 4rem 0;
+        padding-bottom: 0;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      button,
+      .bookMeetingButton,
+      .bookMeetingText,
+      .gradient-heading {
+        font-family: "Bricolage Grotesque", sans-serif !important;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #291a35;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 1.1rem;
+      }
+
+      .gradient-heading {
+        color: #291a35;
+        background-image: linear-gradient(135deg, #291a35 0%, #3e2652 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .highlight {
+        background: linear-gradient(100deg, #ff6a4d, #ff9457);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+      }
+
+      /* ===== ANIMATIONS ===== */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stagger-delay-1 {
+        transition-delay: 0.2s;
+      }
+      .stagger-delay-2 {
+        transition-delay: 0.4s;
+      }
+      .stagger-delay-3 {
+        transition-delay: 0.6s;
+      }
+
+      /* ===== THANK YOU SECTION CSS ===== */
+      .thank-you-section {
+        text-align: center;
+        padding-bottom: 2rem;
+      }
+
+      .check-icon {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, #ff7448, #ff523b);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem auto;
+        animation: pulseZoom 2s ease-in-out infinite;
+        box-shadow: 0 10px 25px rgba(255, 107, 66, 0.35);
+      }
+
+      .check-icon i {
+        font-size: 3rem;
+        color: #fff;
+      }
+
+      .thank-you-section h2 {
+        font-size: 3rem;
+      }
+
+      .thank-you-section p {
+        font-size: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
+        margin-top: 1rem;
+        color: #6e5d77;
+      }
+
+      /* ===== NEXT STEPS SECTION ===== */
+      .next-steps-section {
+        padding: 2rem 0;
+        text-align: center;
+      }
+
+      .next-steps-section h3 {
+        font-size: 2.5rem;
+
+        text-align: center;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        text-align: left;
+      }
+
+      .step-card {
+        background: #ffffff;
+        border: 1px solid #ebdcd0;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 10px 30px -5px rgba(41, 26, 53, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .step-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px -5px rgba(41, 26, 53, 0.1);
+      }
+
+      .step-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ff6b42;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .step-card h4 {
+        font-size: 1.4rem;
+        color: #291a35;
+        margin-bottom: 0.5rem;
+      }
+
+      .step-card p {
+        font-size: 1rem;
+        color: #6e5d77;
+      }
+
+      .bookMeetingButton {
+        background: linear-gradient(135deg, #ff7448 0%, #ff523b 100%);
+        color: #fff;
+        font-size: 2.4rem;
+        font-weight: 600;
+        padding: 25px 40px;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        border: none;
+        overflow: hidden;
+
+        /* 🔥 Continuous smooth zoom */
+        animation: pulseZoom 3s ease-in-out infinite;
+
+        /* ✨ Coral glow shadow */
+        box-shadow: 0 10px 30px -5px rgba(255, 107, 66, 0.4);
+      }
+      .buttonLink {
+        text-decoration: none;
+      }
+      .bookMeetingButton::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
+        animation: shineAnimation 3s ease-in-out infinite;
+      }
+
+      .bookMeetingText {
+        color: #fff;
+        background-clip: text;
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes shineAnimation {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      @keyframes pulseZoom {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 10px 25px -5px rgba(255, 107, 66, 0.4);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 15px 35px -5px rgba(255, 107, 66, 0.5);
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .footer {
+        padding: 2rem 0 1rem 0;
+        text-align: center;
+        border-top: 1px solid #ebdcd0;
+        margin-top: 7rem;
+        color: #6e5d77;
+      }
+      .copyright {
+        font-size: 1rem;
+      }
+
+      /* KEYFRAMES */
+      @keyframes pulseZoom {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes shineAnimation {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      /* RESPONSIVE DESIGN */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 1rem;
+        }
+        .check-icon {
+          width: 80px;
+          height: 80px;
+        }
+        .thank-you-section h2 {
+          font-size: 2.2rem;
+        }
+        .thank-you-section p {
+          font-size: 1rem;
+        }
+        .next-steps-section h3 {
+          font-size: 1.8rem;
+        }
+        .bookMeetingButton {
+          font-size: 1.2rem;
+          padding: 18px 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="container">
+        <!-- =========== THANK YOU MESSAGE =========== -->
+        <section class="thank-you-section">
+          <div class="check-icon fade-up">
+            <i class="fas fa-check"></i>
+          </div>
+           <h2 class="gradient-heading fade-up stagger-delay-1">
+            <span class="highlight">Payment Successful!</span> You're All Set.
+          </h2>
+          <p class="fade-up stagger-delay-2">
+            We received your payment. A receipt and confirmation have been sent
+            to your email. Next, please book a short onboarding call so we can
+            get you set up use the button below to pick a time on our Calendly.
+          </p>
+        </section>
+
+        <!-- =========== NEXT STEPS =========== -->
+        <section class="next-steps-section">
+ 
+          <a class="buttonLink" href="" target="_blank">
+ 
+          <a
+            class="buttonLink"
+            href="https://calendly.com/triple-hash/30min"
+            target="_blank"
+          >
+ 
+            <button class="bookMeetingButton">
+              <span class="bookMeetingText"
+                ><i class="fas fa-calendar-alt"></i> Book Your Onboarding
+                Call</span
+              >
+            </button>
+          </a>
+        </section>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <p class="copyright">
+            &copy; <span id="year"></span> Triple Hash. All Rights Reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Set current year in footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Simple fade-up animation trigger
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      });
+
+      const fadeUpElements = document.querySelectorAll(".fade-up");
+      fadeUpElements.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
