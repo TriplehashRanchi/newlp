@@ -239,7 +239,7 @@ p {
   position: relative;
   background: linear-gradient(135deg, #fff5f0 0%, #ffebe3 100%);
   border: 1.5px solid #ffd6c9;
-  border-radius: 50px;
+  
   padding: 0.55rem 0;
   box-shadow: 0 4px 15px rgba(255, 107, 66, 0.12);
 
@@ -1977,8 +1977,7 @@ svg {
     justify-content: center;
     padding: 0.5rem 0;
   }
-  .stats-section {
-  }
+ 
   .stat-card {
     flex: 0 0 50%; /* ✅ two cards per row */
     padding: 0.5rem 0rem;
@@ -2270,7 +2269,7 @@ svg {
   .stats-section {
     flex-wrap: wrap;
     margin: 0.2rem !important;
-    margin-bottom: 4rem !important;
+    margin-top: 4rem !important;
     padding: 0 0;
   }
   /* On very small screens, switch to a single column */
@@ -2278,6 +2277,112 @@ svg {
     grid-template-columns: 1fr;
     max-width: 350px;
     margin: 0 auto;
+  }
+}
+
+/* ===== PHONE HERO RESPONSIVENESS ONLY ===== */
+@media (max-width: 600px) {
+  .new-hero-section {
+    padding: 2rem 0 1.25rem;
+  }
+
+  .hero-content {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .hero-deco-rings {
+    right: -120px;
+    top: 44px;
+    width: 220px;
+    height: 220px;
+  }
+
+  .hero-tag {
+    max-width: calc(100vw - 2rem);
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+
+  .new-hero-section h2 {
+    max-width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1.6rem !important;
+    line-height: 1.05;
+  }
+
+  .hero-offer-marquee {
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem auto 0.9rem;
+    padding: 0.45rem 0;
+  }
+
+  .hero-marquee-track {
+    gap: 0.8rem;
+  }
+
+  .hero-marquee-item {
+    font-size: 0.8rem;
+  }
+
+  .new-hero-section p {
+    max-width: 100%;
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .hero-video-container {
+    width: calc(100% - 2rem);
+    margin: 1.6rem auto 0.5rem;
+  }
+
+  .hero-video-frame {
+    border-radius: 14px;
+    box-shadow:
+      0 14px 34px rgba(41, 26, 53, 0.14),
+      0 0 26px rgba(255, 107, 66, 0.09);
+  }
+
+  .hero-video-frame:hover {
+    transform: none;
+  }
+
+  .buttonLink {
+    display: block;
+    width: 100%;
+  }
+
+  .bookMeetingButton {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px 18px !important;
+    font-size: 1.2rem !important;
+    line-height: 1.15;
+  }
+  .btn-break {
+    display: none;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero-content {
+    padding: 0 0.85rem;
+  }
+
+  .new-hero-section h2 {
+    font-size: 1.65rem !important;
+  }
+
+  .hero-video-container {
+    width: calc(100% - 1.5rem);
+  }
+
+  .bookMeetingButton {
+    padding: 14px 14px !important;
+    font-size: 0.98rem !important;
   }
 }
 /* Hide by default */
