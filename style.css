@@ -362,7 +362,6 @@ p {
 /* ===== SIMPLE AUTO-RUNNING CONTINUOUS CAROUSEL SECTION ===== */
 .carousel-section {
   width: 100%;
-
   position: relative;
 }
 
@@ -2232,11 +2231,14 @@ svg {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
   .cta-section h2 {
-    font-size: 1.4rem;
+    font-size: 1.45rem !important;
+  }
+  .cta-break {
+    display: none;
   }
   .cta-section p {
     width: 100%;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   .cta-button-text {
     font-size: 1.2rem !important;
@@ -2383,6 +2385,147 @@ svg {
   .bookMeetingButton {
     padding: 14px 14px !important;
     font-size: 0.98rem !important;
+  }
+}
+
+/* ===== PHONE DIFFERENTIATORS SECTION RESPONSIVENESS ONLY ===== */
+@media (max-width: 600px) {
+  .differentiators-section {
+    padding: 3rem 0 0;
+  }
+
+  .differentiators-section .container {
+    padding: 0 1rem;
+  }
+
+  .differentiators-left-rings {
+    left: -125px !important;
+    top: 20px !important;
+    width: 230px !important;
+    height: 230px !important;
+  }
+
+  .diff-heading {
+    margin-bottom: 2rem;
+    font-size: 1.45rem !important;
+    line-height: 1.18;
+  }
+
+  .comparison-deck {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 2rem auto 0;
+    max-width: 100%;
+  }
+
+  .comparison-card {
+    border-radius: 1rem;
+    padding: 1.6rem 1.1rem;
+  }
+
+  .comparison-card:hover,
+  .triplehash-card:hover {
+    transform: none;
+  }
+
+  .comp-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.15rem;
+    line-height: 1.2;
+  }
+
+  .comp-list {
+    gap: 1rem;
+  }
+
+  .comp-list li {
+    gap: 0.75rem;
+    font-size: 0.94rem;
+    line-height: 1.42;
+  }
+
+  .agency-icon,
+  .triplehash-icon {
+    font-size: 1.05rem;
+    margin-top: 0.12rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .diff-heading {
+    font-size: 1.55rem !important;
+  }
+
+  .comparison-card {
+    padding: 1.35rem 0.9rem;
+  }
+
+  .comp-card-title {
+    font-size: 1.12rem;
+  }
+
+  .comp-list li {
+    font-size: 0.88rem;
+  }
+}
+
+/* ===== PHONE CAROUSEL SECTION RESPONSIVENESS ONLY ===== */
+@media (max-width: 600px) {
+  .carousel-section {
+    width: 100%;
+  }
+
+  .carousel-section .container {
+    padding: 0;
+  }
+
+  .carousel-container {
+    margin: 0rem auto 0;
+    padding: 1rem 0;
+  }
+
+  .carousel-container::before,
+  .carousel-container::after {
+    width: 44px;
+  }
+
+  .carousel-track {
+    gap: 0.9rem;
+    animation-duration: 55s;
+  }
+
+  .carousel-card {
+    flex-basis: 290px;
+    border-radius: 12px;
+    padding: 7px;
+  }
+
+  .carousel-card:hover {
+    transform: none;
+  }
+
+  .carousel-card img {
+    border-radius: 9px;
+  }
+}
+
+@media (max-width: 375px) {
+  .carousel-container {
+    margin-top: 2rem;
+  }
+
+  .carousel-container::before,
+  .carousel-container::after {
+    width: 30px;
+  }
+
+  .carousel-track {
+    gap: 0.75rem;
+  }
+
+  .carousel-card {
+    flex-basis: 250px;
+    padding: 6px;
   }
 }
 /* Hide by default */
