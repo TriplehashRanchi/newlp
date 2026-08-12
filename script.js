@@ -240,3 +240,202 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// ===== WHATSAPP TESTIMONIAL INTERACTIVITY =====
+document.addEventListener("DOMContentLoaded", () => {
+  const waAppWindow = document.getElementById("waAppWindow");
+  const waThemeToggle = document.getElementById("waThemeToggle");
+  const waThemeLabel = document.getElementById("waThemeLabel");
+  const waChatItemList = document.querySelectorAll(".wa-chat-item");
+  const waChatPanes = document.querySelectorAll(".wa-chat-pane");
+  const waActiveName = document.getElementById("waActiveName");
+  const waActiveAvatar = document.getElementById("waActiveAvatar");
+  const waActiveStatus = document.getElementById("waActiveStatus");
+  const waMobileBackBtn = document.getElementById("waMobileBackBtn");
+
+  const coachData = {
+    abdullah: {
+      name: "Abdullah Ansari",
+      avatar: "/coach/1.webp",
+      status: "Business Coach • online"
+    },
+    sakshi: {
+      name: "Sakshi Chandrakar",
+      avatar: "/coach/3.webp",
+      status: "LinkedIn Coach • online"
+    },
+    abhinav: {
+      name: "Abhinav Saxena",
+      avatar: "/coach/4.webp",
+      status: "Food Biz Coach • last seen yesterday"
+    },
+    shruti: {
+      name: "Shruti Chaudhary",
+      avatar: "/coach/5.webp",
+      status: "Mind Coach • online"
+    },
+    harmeet: {
+      name: "Harmeet Kelley",
+      avatar: "/coach/6.webp",
+      status: "Growth Coach • last seen Tuesday"
+    }
+  };
+
+  // 1. Chat Tab Switcher
+  if (waChatItemList.length > 0) {
+    waChatItemList.forEach((item) => {
+      item.addEventListener("click", () => {
+        const chatKey = item.getAttribute("data-chat");
+
+        // Remove active class from all items & panes
+        waChatItemList.forEach((el) => el.classList.remove("active"));
+        waChatPanes.forEach((pane) => pane.classList.remove("active"));
+
+        // Set active item & pane
+        item.classList.add("active");
+        const targetPane = document.getElementById(`chat-${chatKey}`);
+        if (targetPane) {
+          targetPane.classList.add("active");
+        }
+
+        // Update header details
+        if (coachData[chatKey]) {
+          if (waActiveName) waActiveName.textContent = coachData[chatKey].name;
+          if (waActiveAvatar) waActiveAvatar.src = coachData[chatKey].avatar;
+          if (waActiveStatus) waActiveStatus.textContent = coachData[chatKey].status;
+        }
+
+        // Mobile open chat window
+        if (waAppWindow) {
+          waAppWindow.classList.add("mobile-chat-open");
+        }
+      });
+    });
+  }
+
+  // 2. Mobile Back Button
+  if (waMobileBackBtn && waAppWindow) {
+    waMobileBackBtn.addEventListener("click", () => {
+      waAppWindow.classList.remove("mobile-chat-open");
+    });
+  }
+
+  // 3. Centralized Theme Switching Function
+  function setWhatsAppTheme(isDark) {
+    if (!waAppWindow) return;
+    const themeMenuTexts = document.querySelectorAll(".wa-theme-menu-text");
+
+    if (isDark) {
+      waAppWindow.classList.remove("wa-light-mode");
+      waAppWindow.classList.add("wa-dark-mode");
+      if (waThemeToggle) waThemeToggle.checked = true;
+      if (waThemeLabel) {
+        waThemeLabel.innerHTML = '<i class="fa-solid fa-moon"></i> WhatsApp Dark Mode';
+      }
+      themeMenuTexts.forEach((el) => {
+        el.textContent = "Switch to Light Theme";
+      });
+    } else {
+      waAppWindow.classList.remove("wa-dark-mode");
+      waAppWindow.classList.add("wa-light-mode");
+      if (waThemeToggle) waThemeToggle.checked = false;
+      if (waThemeLabel) {
+        waThemeLabel.innerHTML = '<i class="fa-solid fa-sun"></i> WhatsApp Light Mode';
+      }
+      themeMenuTexts.forEach((el) => {
+        el.textContent = "Switch to Dark Theme";
+      });
+    }
+  }
+
+  if (waThemeToggle) {
+    waThemeToggle.addEventListener("change", (e) => {
+      setWhatsAppTheme(e.target.checked);
+    });
+  }
+
+  // 4. Three-Dots Menu Dropdown & Theme Option Handler
+  const waSidebarMenuBtn = document.getElementById("waSidebarMenuBtn");
+  const waSidebarDropdown = document.getElementById("waSidebarDropdown");
+  const waHeaderMenuBtn = document.getElementById("waHeaderMenuBtn");
+  const waHeaderDropdown = document.getElementById("waHeaderDropdown");
+  const themeMenuOpts = document.querySelectorAll(".wa-theme-menu-opt");
+
+  if (waSidebarMenuBtn && waSidebarDropdown) {
+    waSidebarMenuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (waHeaderDropdown) waHeaderDropdown.classList.remove("show");
+      waSidebarDropdown.classList.toggle("show");
+    });
+  }
+
+  if (waHeaderMenuBtn && waHeaderDropdown) {
+    waHeaderMenuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (waSidebarDropdown) waSidebarDropdown.classList.remove("show");
+      waHeaderDropdown.classList.toggle("show");
+    });
+  }
+
+  themeMenuOpts.forEach((opt) => {
+    opt.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isCurrentlyDark = waAppWindow.classList.contains("wa-dark-mode");
+      setWhatsAppTheme(!isCurrentlyDark);
+      if (waSidebarDropdown) waSidebarDropdown.classList.remove("show");
+      if (waHeaderDropdown) waHeaderDropdown.classList.remove("show");
+    });
+  });
+
+  // Close dropdowns on outside click
+  document.addEventListener("click", () => {
+    if (waSidebarDropdown) waSidebarDropdown.classList.remove("show");
+    if (waHeaderDropdown) waHeaderDropdown.classList.remove("show");
+  });
+
+  // 4. Voice Note Audio Wave Simulation
+  const playBtns = document.querySelectorAll(".wa-play-btn");
+  playBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const vnId = btn.getAttribute("data-vn");
+      const waveform = document.getElementById(`waveform-${vnId}`);
+      const durationSpan = document.getElementById(`duration-${vnId}`);
+      const icon = btn.querySelector("i");
+
+      if (waveform.classList.contains("playing")) {
+        // Pause
+        waveform.classList.remove("playing");
+        if (icon) {
+          icon.classList.remove("fa-pause");
+          icon.classList.add("fa-play");
+        }
+      } else {
+        // Play
+        waveform.classList.add("playing");
+        if (icon) {
+          icon.classList.remove("fa-play");
+          icon.classList.add("fa-pause");
+        }
+
+        // Simulate voice playback timer
+        let seconds = 38;
+        const timer = setInterval(() => {
+          if (!waveform.classList.contains("playing") || seconds <= 0) {
+            clearInterval(timer);
+            waveform.classList.remove("playing");
+            if (icon) {
+              icon.classList.remove("fa-pause");
+              icon.classList.add("fa-play");
+            }
+            if (durationSpan) durationSpan.textContent = "0:38";
+            return;
+          }
+          seconds--;
+          const formatted = seconds < 10 ? `0:0${seconds}` : `0:${seconds}`;
+          if (durationSpan) durationSpan.textContent = formatted;
+        }, 1000);
+      }
+    });
+  });
+});
+
