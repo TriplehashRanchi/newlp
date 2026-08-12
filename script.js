@@ -75,11 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// ===== CONTINUOUS MARQUEE SLIDER INITIALIZATION =====
+// ===== MARQUEE HOVER PAUSE =====
 const carouselTrack = document.getElementById("carouselTrack");
-if (carouselTrack && carouselTrack.children.length > 0) {
-  // Optional hover pause enhancement
-  const container = carouselTrack.parentElement;
+if (carouselTrack) {
+  const container = carouselTrack.closest(".carousel-row-wrapper");
   if (container) {
     container.addEventListener("mouseenter", () => {
       carouselTrack.style.animationPlayState = "paused";
@@ -89,6 +88,7 @@ if (carouselTrack && carouselTrack.children.length > 0) {
     });
   }
 }
+
 
 // ===== MODAL LOGIC =====
 function openModal() {
