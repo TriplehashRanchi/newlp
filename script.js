@@ -90,31 +90,6 @@ if (carouselTrack) {
 }
 
 
-// ===== MODAL LOGIC =====
-function openModal() {
-  const modal = document.getElementById("formModal");
-  if (modal) {
-    modal.style.display = "block";
-    document.body.style.overflow = "hidden"; // Prevent background scrolling
-  }
-}
-
-function closeModal() {
-  const modal = document.getElementById("formModal");
-  if (modal) {
-    modal.style.display = "none";
-    document.body.style.overflow = "auto"; // Restore background scrolling
-  }
-}
-
-// Close when clicking outside
-window.addEventListener("click", (event) => {
-  const modal = document.getElementById("formModal");
-  if (event.target === modal) {
-    closeModal();
-  }
-});
-
 // Custom Dropdown Logic (migrated from form.html)
 document.addEventListener("DOMContentLoaded", () => {
   const customSelects = document.querySelectorAll(".custom-select");
