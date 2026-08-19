@@ -253,6 +253,81 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Harmeet Kelley",
       avatar: "/coach/6.webp",
       status: "Growth Coach • last seen Tuesday"
+    },
+    ruma: {
+      name: "Ruma Pal",
+      avatar: "/coach/7.webp",
+      status: "Health Coach - online"
+    },
+    jagan: {
+      name: "Jagan & Uma",
+      avatar: "/coach/8.webp",
+      status: "Health Coach - last seen Sunday"
+    },
+    "shruti-sethi": {
+      name: "Shruti Sethi",
+      avatar: "/coach/12.webp",
+      status: "Relationship Coach - online"
+    },
+    apurva: {
+      name: "Apurva Tare",
+      avatar: "/coach/33.webp",
+      status: "Inner Child Coach - last seen Thursday"
+    },
+    rashi: {
+      name: "Rashi jain",
+      avatar: "/coach/32.webp",
+      status: "Fitness Coach - last seen Wednesday"
+    },
+    prakhar: {
+      name: "Prakhar Kulshrestha",
+      avatar: "/coach/10.webp",
+      status: "Affiliate Marketing Coach - online"
+    },
+    priscilla: {
+      name: "Priscilla Khambatta",
+      avatar: "/coach/11.webp",
+      status: "Leadership Coach - last seen Tuesday"
+    },
+    aparna: {
+      name: "Aparna Ganesh",
+      avatar: "/coach/9.webp",
+      status: "Confidence Coach - online"
+    },
+    binita: {
+      name: "Binita Srivastava",
+      avatar: "/coach/13.webp",
+      status: "Transformation Coach - last seen Sunday"
+    },
+    gracienne: {
+      name: "Gracienne",
+      avatar: "/coach/14.webp",
+      status: "Health Coach - last seen Saturday"
+    },
+    neera: {
+      name: "Neera Pande",
+      avatar: "/coach/15.webp",
+      status: "Business Coach - online"
+    },
+    vivek: {
+      name: "Vivek Mashrani",
+      avatar: "/coach/16.webp",
+      status: "Stock Market Coach - last seen Friday"
+    },
+    shripal: {
+      name: "Shripal Gandhi",
+      avatar: "/coach/17.webp",
+      status: "Growth Coach - last seen Thursday"
+    },
+    prakash: {
+      name: "Prakash Gaba",
+      avatar: "/coach/18.webp",
+      status: "Stock Market Coach - last seen Wednesday"
+    },
+    madhu: {
+      name: "Madhu Lakhlan",
+      avatar: "/coach/19.webp",
+      status: "Relationship Coach - last seen Wednesday"
     }
   };
 
