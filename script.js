@@ -443,49 +443,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (waHeaderDropdown) waHeaderDropdown.classList.remove("show");
   });
 
-  // 4. Voice Note Audio Wave Simulation
-  const playBtns = document.querySelectorAll(".wa-play-btn");
-  playBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const vnId = btn.getAttribute("data-vn");
-      const waveform = document.getElementById(`waveform-${vnId}`);
-      const durationSpan = document.getElementById(`duration-${vnId}`);
-      const icon = btn.querySelector("i");
-
-      if (waveform.classList.contains("playing")) {
-        // Pause
-        waveform.classList.remove("playing");
-        if (icon) {
-          icon.classList.remove("fa-pause");
-          icon.classList.add("fa-play");
-        }
-      } else {
-        // Play
-        waveform.classList.add("playing");
-        if (icon) {
-          icon.classList.remove("fa-play");
-          icon.classList.add("fa-pause");
-        }
-
-        // Simulate voice playback timer
-        let seconds = 38;
-        const timer = setInterval(() => {
-          if (!waveform.classList.contains("playing") || seconds <= 0) {
-            clearInterval(timer);
-            waveform.classList.remove("playing");
-            if (icon) {
-              icon.classList.remove("fa-pause");
-              icon.classList.add("fa-play");
-            }
-            if (durationSpan) durationSpan.textContent = "0:38";
-            return;
-          }
-          seconds--;
-          const formatted = seconds < 10 ? `0:0${seconds}` : `0:${seconds}`;
-          if (durationSpan) durationSpan.textContent = formatted;
-        }, 1000);
-      }
-    });
-  });
 });
 

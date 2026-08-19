@@ -3870,10 +3870,6 @@ input:checked + .wa-slider:before {
   font-size: 0.8rem;
 }
 
-.wa-mic-icon {
-  color: #00a884;
-}
-
 .wa-unread-badge {
   background-color: #25d366;
   color: #111b21;
@@ -4141,162 +4137,6 @@ input:checked + .wa-slider:before {
   color: var(--wa-text-primary);
 }
 
-/* Media Card Attachment */
-.wa-media-bubble {
-  max-width: 84%;
-}
-
-.wa-media-card {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 10px 12px;
-  margin-bottom: 8px;
-}
-
-.wa-media-header {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #25d366;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.wa-media-body {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 8px;
-}
-
-.wa-stat-box {
-  background: var(--wa-bg-header);
-  padding: 6px 8px;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-}
-
-.wa-stat-label {
-  font-size: 0.65rem;
-  color: var(--wa-text-secondary);
-}
-
-.wa-stat-val {
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.text-green { color: #25d366; }
-.text-blue { color: #53bdeb; }
-.text-gold { color: #ffd700; }
-
-/* Voice Note Player */
-.wa-voice-bubble {
-  min-width: 280px;
-}
-
-.wa-voice-player {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.wa-play-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #00a884;
-  border: none;
-  color: #ffffff;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.2s, background-color 0.2s;
-}
-
-.wa-play-btn:hover {
-  transform: scale(1.08);
-  background: #25d366;
-}
-
-.wa-vn-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.wa-waveform {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  height: 22px;
-}
-
-.wa-wave-bar {
-  width: 3px;
-  height: 40%;
-  background-color: var(--wa-text-secondary);
-  border-radius: 3px;
-  transition: height 0.2s;
-}
-
-.wa-waveform.playing .wa-wave-bar {
-  background-color: #25d366;
-  animation: waWaveAnim 1.2s infinite ease-in-out alternate;
-}
-
-.wa-waveform.playing .wa-wave-bar:nth-child(2n) { animation-delay: 0.2s; }
-.wa-waveform.playing .wa-wave-bar:nth-child(3n) { animation-delay: 0.4s; }
-.wa-waveform.playing .wa-wave-bar:nth-child(4n) { animation-delay: 0.1s; }
-
-@keyframes waWaveAnim {
-  0% { height: 20%; }
-  100% { height: 100%; }
-}
-
-.wa-vn-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.7rem;
-  color: var(--wa-text-secondary);
-}
-
-.wa-vn-speed {
-  background: var(--wa-bg-header);
-  padding: 1px 5px;
-  border-radius: 4px;
-  font-size: 0.65rem;
-}
-
-.wa-vn-avatar {
-  position: relative;
-  flex-shrink: 0;
-}
-
-.wa-vn-avatar img {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.wa-mic-badge {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  font-size: 0.65rem;
-  color: #00a884;
-  background: var(--wa-bg-bubble-in);
-  border-radius: 50%;
-  padding: 1px;
-}
-
 /* CHAT FOOTER */
 .wa-chat-footer {
   height: 60px;
@@ -4393,10 +4233,6 @@ input:checked + .wa-slider:before {
     max-width: 88%;
   }
 
-  .wa-voice-bubble {
-    min-width: unset;
-    width: 100%;
-  }
 }
 
 @media (max-width: 480px) {
@@ -4460,19 +4296,6 @@ input:checked + .wa-slider:before {
     max-width: 92%;
     font-size: 0.84rem;
     padding: 7px 10px 5px 10px;
-  }
-
-  .wa-media-card {
-    padding: 8px 10px;
-  }
-
-  .wa-media-body {
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-
-  .wa-stat-val {
-    font-size: 0.78rem;
   }
 
   .wa-chat-footer {
