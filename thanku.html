@@ -30,9 +30,43 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1279952023906739');
 fbq('track', 'PageView');
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+
+  if (parts.length === 2) {
+    return parts.pop().split(";").shift();
+  }
+
+  return null;
+}
+
 if (!sessionStorage.getItem("booking_purchase_tracked")) {
-  fbq("track", "Purchase");
-  sessionStorage.setItem("booking_purchase_tracked", "1");
+
+  const purchaseEventId = `purchase_${crypto.randomUUID()}`;
+
+  // Browser Pixel
+  fbq("track", "Purchase", {}, {
+    eventID: purchaseEventId
+  });
+
+  // CAPI
+  fetch("/api/meta-purchase", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      eventId: purchaseEventId,
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc")
+    })
+  });
+
+  sessionStorage.setItem(
+    "booking_purchase_tracked",
+    "1"
+  );
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
