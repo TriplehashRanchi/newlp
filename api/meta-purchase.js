@@ -30,6 +30,10 @@ export default async function handler(req, res) {
         action_source: "website",
         event_source_url: "https://lp.triplehash.in/thanku.html",
         user_data: userData,
+        custom_data: {
+        value: 0,
+        currency: "INR"
+        },
         },
     ],
 
