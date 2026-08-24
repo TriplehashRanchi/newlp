@@ -46,9 +46,12 @@ if (!sessionStorage.getItem("booking_purchase_tracked")) {
   const purchaseEventId = `purchase_${crypto.randomUUID()}`;
 
   // Browser Pixel
-  fbq("track", "Purchase", {}, {
-    eventID: purchaseEventId
-  });
+ fbq("track", "Purchase", {
+  value: 0,
+  currency: "INR"
+}, {
+  eventID: purchaseEventId
+});
 
   // CAPI
   fetch("/api/meta-purchase", {
