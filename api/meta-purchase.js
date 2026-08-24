@@ -36,8 +36,6 @@ export default async function handler(req, res) {
         },
         },
     ],
-
-    test_event_code: "TEST77852",
     };
   const response = await fetch(
     `https://graph.facebook.com/v23.0/${process.env.META_PIXEL_ID}/events?access_token=${process.env.META_CAPI_TOKEN}`,
