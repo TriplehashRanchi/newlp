@@ -58,8 +58,8 @@ if (!sessionStorage.getItem("booking_purchase_tracked")) {
     },
     body: JSON.stringify({
       eventId: purchaseEventId,
-      fbp: getCookie("_fbp"),
-      fbc: getCookie("_fbc")
+      fbp: localStorage.getItem("meta_fbp") || getCookie("_fbp"),
+      fbc: localStorage.getItem("meta_fbc") || getCookie("_fbc")
     })
   });
 

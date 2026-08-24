@@ -2721,5 +2721,41 @@ src="https://www.facebook.com/tr?id=1279952023906739&ev=PageView&noscript=1"
     </div>
 
     <script src="./script.js"></script>
+    <script>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+
+    if (parts.length === 2) {
+      return parts.pop().split(";").shift();
+    }
+
+    return null;
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+
+      const fbclid = params.get("fbclid");
+      const fbp = getCookie("_fbp");
+
+      let fbc = getCookie("_fbc");
+
+      // If Meta click exists but _fbc wasn't created yet
+      if (!fbc && fbclid) {
+        fbc = `fb.1.${Date.now()}.${fbclid}`;
+      }
+
+      if (fbp) {
+        localStorage.setItem("meta_fbp", fbp);
+      }
+
+      if (fbc) {
+        localStorage.setItem("meta_fbc", fbc);
+      }
+    }, 500);
+  });
+</script>
   </body>
 </html>
