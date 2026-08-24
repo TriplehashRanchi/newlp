@@ -21,19 +21,20 @@ export default async function handler(req, res) {
   const userAgent = req.headers["user-agent"];
   if (userAgent) userData.client_user_agent = userAgent;
 
-  const payload = {
+    const payload = {
     data: [
-      {
+        {
         event_name: "Purchase",
         event_time: Math.floor(Date.now() / 1000),
         event_id: eventId,
         action_source: "website",
         event_source_url: "https://lp.triplehash.in/thanku.html",
         user_data: userData,
-      },
+        },
     ],
-  };
 
+    test_event_code: "TEST77852",
+    };
   const response = await fetch(
     `https://graph.facebook.com/v23.0/${process.env.META_PIXEL_ID}/events?access_token=${process.env.META_CAPI_TOKEN}`,
     {
