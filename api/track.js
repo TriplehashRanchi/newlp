@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
-    const { vid, eventName, page, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid, meta, raw_params } = body;
+    const { vid, sid, eventName, page, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid, meta, raw_params } = body;
 
     if (!vid || !eventName) {
       return res.status(400).json({ error: "vid and eventName are required" });
@@ -16,9 +16,9 @@ export default async function handler(req, res) {
     const sql = getDb();
     await sql`
       insert into funnel_events
-        (vid, event_name, page, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid, meta, raw_params)
+        (vid, sid, event_name, page, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid, meta, raw_params)
       values
-        (${vid}, ${eventName}, ${page || null}, ${utm_source || null}, ${utm_medium || null}, ${utm_campaign || null},
+        (${vid}, ${sid || null}, ${eventName}, ${page || null}, ${utm_source || null}, ${utm_medium || null}, ${utm_campaign || null},
          ${utm_content || null}, ${utm_term || null}, ${fbclid || null}, ${gclid || null},
          ${sql.json(meta || null)}, ${sql.json(raw_params || null)})
     `;

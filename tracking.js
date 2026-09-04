@@ -3,13 +3,18 @@
 
   var API = "/api/track";
   var VID_KEY = "th_vid";
+  var SID_KEY = "th_sid";
   var UTM_KEY = "th_utm";
 
   function uuid() {
     if (crypto && crypto.randomUUID) return crypto.randomUUID();
-    return "vid-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+    return "id-" + Date.now() + "-" + Math.random().toString(16).slice(2);
   }
 
+  // vid = this person/device, persists forever (localStorage) — good for "did they come
+  // back later and book". sid = this one visit, resets per tab/session (sessionStorage) —
+  // good for "device/referrer/bounce for this specific flow", so a returning visitor a week
+  // later on a different device doesn't get attributed to their original device forever.
   function getVid() {
     try {
       var v = localStorage.getItem(VID_KEY);
@@ -18,6 +23,19 @@
         localStorage.setItem(VID_KEY, v);
       }
       return v;
+    } catch (e) {
+      return uuid();
+    }
+  }
+
+  function getSid() {
+    try {
+      var s = sessionStorage.getItem(SID_KEY);
+      if (!s) {
+        s = uuid();
+        sessionStorage.setItem(SID_KEY, s);
+      }
+      return s;
     } catch (e) {
       return uuid();
     }
@@ -67,6 +85,7 @@
 
     var payload = {
       vid: vid,
+      sid: getSid(),
       eventName: eventName,
       page: window.location.pathname,
       utm_source: utm.utm_source || null,
@@ -102,6 +121,7 @@
       var url = new URL(href, window.location.href);
       var utm = captureUtm();
       url.searchParams.set("vid", getVid());
+      url.searchParams.set("sid", getSid());
       Object.keys(utm.raw || {}).forEach(function (k) {
         if (utm.raw[k]) url.searchParams.set(k, utm.raw[k]);
       });

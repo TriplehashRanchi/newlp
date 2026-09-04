@@ -39,16 +39,19 @@ await sql`
     meta jsonb,
     raw_params jsonb,
     lead jsonb,
+    sid text,
     created_at timestamptz not null default now()
   )
 `;
 
 await sql`alter table funnel_events add column if not exists raw_params jsonb`;
 await sql`alter table funnel_events add column if not exists lead jsonb`;
+await sql`alter table funnel_events add column if not exists sid text`;
 
 await sql`create index if not exists funnel_events_vid_idx on funnel_events (vid)`;
 await sql`create index if not exists funnel_events_name_idx on funnel_events (event_name)`;
 await sql`create index if not exists funnel_events_created_idx on funnel_events (created_at)`;
+await sql`create index if not exists funnel_events_sid_idx on funnel_events (sid)`;
 
 console.log("funnel_events table ready");
 await sql.end();

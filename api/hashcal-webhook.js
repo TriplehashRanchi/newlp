@@ -71,9 +71,9 @@ export default async function handler(req, res) {
     const sql = getDb();
     await sql`
       insert into funnel_events
-        (vid, event_name, page, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid, meta, raw_params, lead)
+        (vid, sid, event_name, page, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid, meta, raw_params, lead)
       values
-        (${vid}, ${mapped.name}, ${"hashcal"}, ${tracking.utm_source || null}, ${tracking.utm_medium || null},
+        (${vid}, ${tracking.sid || null}, ${mapped.name}, ${"hashcal"}, ${tracking.utm_source || null}, ${tracking.utm_medium || null},
          ${tracking.utm_campaign || null}, ${tracking.utm_content || null}, ${tracking.utm_term || null},
          ${tracking.fbclid || null}, ${tracking.gclid || null}, ${sql.json(mapped.meta || null)},
          ${sql.json(tracking || null)}, ${sql.json(mapped.lead || null)})
