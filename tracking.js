@@ -111,10 +111,40 @@
     }
   }
 
+  function nearestHeadingText(el) {
+    var node = el;
+    while (node && node !== document.body) {
+      var sib = node.previousElementSibling;
+      while (sib) {
+        var heading = /^H[1-3]$/.test(sib.tagName) ? sib : sib.querySelector("h1,h2,h3");
+        if (heading && heading.textContent.trim()) {
+          return heading.textContent.trim().slice(0, 40);
+        }
+        sib = sib.previousElementSibling;
+      }
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  // Explicit data-cta wins; otherwise the closest named <section>; otherwise the nearest
+  // heading above the button in document order; otherwise a stable position index so at
+  // least repeat clicks on the same button still group together.
   function ctaLabel(el) {
+    if (el.dataset && el.dataset.cta) return el.dataset.cta;
+
     var section = el.closest("section");
-    if (section && section.className) return String(section.className).split(" ")[0];
-    return "unknown-section";
+    if (section && section.className) {
+      var cls = String(section.className).split(" ")[0];
+      if (cls) return cls;
+    }
+
+    var heading = nearestHeadingText(el);
+    if (heading) return heading;
+
+    var all = document.querySelectorAll(".buttonLink");
+    var idx = Array.prototype.indexOf.call(all, el);
+    return "CTA #" + (idx + 1);
   }
 
   function initCtaTracking() {
