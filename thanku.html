@@ -76,6 +76,37 @@ if (!sessionStorage.getItem("booking_purchase_tracked")) {
 src="https://www.facebook.com/tr?id=1279952023906739&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- OpenAI Pixel -->
+<script>
+!function(w,d,s,u){
+  if(w.oaiq)return;
+  var q=function(){q.q.push(arguments)};
+  q.q=[];
+  w.oaiq=q;
+  var j=d.createElement(s);
+  j.async=1;
+  j.src=u;
+  var f=d.getElementsByTagName(s)[0];
+  f.parentNode.insertBefore(j,f)
+}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+
+oaiq("init",{
+  pixelId:"NZJZYNdpsntBDtsN7iZCDv",
+  debug:true
+});
+</script>
+
+<!-- Booking conversion -->
+<script>
+if (!sessionStorage.getItem("openai_booking_tracked")) {
+  oaiq("measure", "appointment_scheduled", {
+    type: "customer_action"
+  });
+
+  sessionStorage.setItem("openai_booking_tracked", "1");
+}
+</script>
+    
     <style>
       @font-face {
         font-family: "Geomanist";
