@@ -151,14 +151,22 @@
     document.addEventListener(
       "click",
       function (e) {
-        var link = e.target.closest(".buttonLink");
-        if (!link) return;
+        var bookingLink = e.target.closest(".buttonLink");
+        if (bookingLink) {
+          send("cta_click", { label: ctaLabel(bookingLink) });
 
-        send("cta_click", { label: ctaLabel(link) });
+          var href = bookingLink.getAttribute("href");
+          if (href && /^https?:\/\//i.test(href)) {
+            bookingLink.setAttribute("href", decorateLink(href));
+          }
+          return;
+        }
 
-        var href = link.getAttribute("href");
-        if (href && /^https?:\/\//i.test(href)) {
-          link.setAttribute("href", decorateLink(href));
+        // Free-tool links on the disqualified/gifts page (HashCal, HashForm, HashPlay) —
+        // a different `.buttonLink` class, so the tracker above never saw these clicks.
+        var toolLink = e.target.closest(".gift-tool-link");
+        if (toolLink) {
+          send("gift_tool_click", { label: toolLink.textContent.trim() || "unknown tool" });
         }
       },
       true
@@ -221,6 +229,13 @@
       viewport_width: window.innerWidth,
       user_agent: navigator.userAgent,
     });
+
+    // A distinct signal for "reached the disqualified/gifts page" — lp_view alone doesn't
+    // separate this from a normal landing-page visit without filtering by page in SQL.
+    if (window.location.pathname.indexOf("gifts") !== -1) {
+      send("gifts_page_view");
+    }
+
     initCtaTracking();
     initScrollTracking();
     initDwellTracking();
