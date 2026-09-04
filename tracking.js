@@ -111,40 +111,16 @@
     }
   }
 
-  function nearestHeadingText(el) {
-    var node = el;
-    while (node && node !== document.body) {
-      var sib = node.previousElementSibling;
-      while (sib) {
-        var heading = /^H[1-3]$/.test(sib.tagName) ? sib : sib.querySelector("h1,h2,h3");
-        if (heading && heading.textContent.trim()) {
-          return heading.textContent.trim().slice(0, 40);
-        }
-        sib = sib.previousElementSibling;
-      }
-      node = node.parentElement;
-    }
-    return null;
-  }
-
-  // Explicit data-cta wins; otherwise the closest named <section>; otherwise the nearest
-  // heading above the button in document order; otherwise a stable position index so at
-  // least repeat clicks on the same button still group together.
+  // Explicit data-cta wins; otherwise a stable position number (CTA 1, CTA 2, ...) in
+  // document order. Section-class and heading-text labels were tried first but turned out
+  // noisy/inconsistent across pages — a plain position index is stable and always comparable
+  // across reports, even if it means checking the page to see which button "CTA 3" is.
   function ctaLabel(el) {
     if (el.dataset && el.dataset.cta) return el.dataset.cta;
 
-    var section = el.closest("section");
-    if (section && section.className) {
-      var cls = String(section.className).split(" ")[0];
-      if (cls) return cls;
-    }
-
-    var heading = nearestHeadingText(el);
-    if (heading) return heading;
-
     var all = document.querySelectorAll(".buttonLink");
     var idx = Array.prototype.indexOf.call(all, el);
-    return "CTA #" + (idx + 1);
+    return "CTA " + (idx + 1);
   }
 
   function initCtaTracking() {
@@ -221,20 +197,26 @@
     window.addEventListener("pagehide", sendDwell);
   }
 
+  // One "page view" event per pageload, named by which page it actually is — not a single
+  // generic lp_view fired from every page. Firing lp_view everywhere meant one visitor's
+  // trip through index.html -> thanku.html counted as two landing-page views, and inflated
+  // the device/referrer breakdown (which counts rows, not distinct visitors) accordingly.
+  function pageViewEventName() {
+    var path = window.location.pathname;
+    if (path.indexOf("gifts") !== -1) return "gifts_page_view";
+    if (path.indexOf("thanku") !== -1) return "thanku_view";
+    if (path === "/" || path === "" || path.indexOf("index") !== -1) return "lp_view";
+    return "page_view";
+  }
+
   function init() {
-    send("lp_view", {
+    send(pageViewEventName(), {
       referrer: document.referrer || null,
       screen_width: screen.width,
       screen_height: screen.height,
       viewport_width: window.innerWidth,
       user_agent: navigator.userAgent,
     });
-
-    // A distinct signal for "reached the disqualified/gifts page" — lp_view alone doesn't
-    // separate this from a normal landing-page visit without filtering by page in SQL.
-    if (window.location.pathname.indexOf("gifts") !== -1) {
-      send("gifts_page_view");
-    }
 
     initCtaTracking();
     initScrollTracking();
