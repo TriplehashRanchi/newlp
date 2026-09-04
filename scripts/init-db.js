@@ -37,9 +37,14 @@ await sql`
     fbclid text,
     gclid text,
     meta jsonb,
+    raw_params jsonb,
+    lead jsonb,
     created_at timestamptz not null default now()
   )
 `;
+
+await sql`alter table funnel_events add column if not exists raw_params jsonb`;
+await sql`alter table funnel_events add column if not exists lead jsonb`;
 
 await sql`create index if not exists funnel_events_vid_idx on funnel_events (vid)`;
 await sql`create index if not exists funnel_events_name_idx on funnel_events (event_name)`;

@@ -4,7 +4,6 @@
   var API = "/api/track";
   var VID_KEY = "th_vid";
   var UTM_KEY = "th_utm";
-  var SCROLL_KEY_PREFIX = "th_scroll_";
 
   function uuid() {
     if (crypto && crypto.randomUUID) return crypto.randomUUID();
@@ -32,32 +31,34 @@
     }
   }
 
+  var KNOWN_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"];
+
+  // Captures every query param present on landing, not just a fixed allowlist — so a new
+  // platform's click id (ttclid, li_fat_id, msclkid, whatever comes next) is tracked without
+  // needing a code change. Known keys still get pulled out into their own columns for filtering.
   function captureUtm() {
     var params = new URLSearchParams(window.location.search);
-    var incoming = {
-      utm_source: params.get("utm_source"),
-      utm_medium: params.get("utm_medium"),
-      utm_campaign: params.get("utm_campaign"),
-      utm_content: params.get("utm_content"),
-      utm_term: params.get("utm_term"),
-      fbclid: params.get("fbclid"),
-      gclid: params.get("gclid"),
-    };
-
-    var hasIncoming = Object.keys(incoming).some(function (k) {
-      return !!incoming[k];
+    var raw = {};
+    params.forEach(function (value, key) {
+      if (value) raw[key] = value;
     });
 
+    var hasIncoming = Object.keys(raw).length > 0;
     var stored = getStoredUtm();
-    var merged = hasIncoming ? incoming : stored;
+    var merged = hasIncoming ? raw : stored;
 
     if (hasIncoming) {
       try {
-        localStorage.setItem(UTM_KEY, JSON.stringify(incoming));
+        localStorage.setItem(UTM_KEY, JSON.stringify(raw));
       } catch (e) {}
     }
 
-    return merged;
+    var structured = {};
+    KNOWN_KEYS.forEach(function (k) {
+      structured[k] = merged[k] || null;
+    });
+    structured.raw = merged;
+    return structured;
   }
 
   function send(eventName, meta) {
@@ -76,6 +77,7 @@
       fbclid: utm.fbclid || null,
       gclid: utm.gclid || null,
       meta: meta || null,
+      raw_params: utm.raw || null,
     };
 
     try {
@@ -93,14 +95,15 @@
     } catch (e) {}
   }
 
-  // Append vid + click/UTM ids onto outbound CTA links so hashcal can carry them forward
+  // Append vid + every captured param onto outbound CTA links so hashcal can carry them
+  // forward, whatever platform they came from — not just the ones we thought to name.
   function decorateLink(href) {
     try {
       var url = new URL(href, window.location.href);
       var utm = captureUtm();
       url.searchParams.set("vid", getVid());
-      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"].forEach(function (k) {
-        if (utm[k]) url.searchParams.set(k, utm[k]);
+      Object.keys(utm.raw || {}).forEach(function (k) {
+        if (utm.raw[k]) url.searchParams.set(k, utm.raw[k]);
       });
       return url.toString();
     } catch (e) {
