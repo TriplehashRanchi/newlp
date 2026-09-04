@@ -184,7 +184,13 @@
   }
 
   function init() {
-    send("lp_view");
+    send("lp_view", {
+      referrer: document.referrer || null,
+      screen_width: screen.width,
+      screen_height: screen.height,
+      viewport_width: window.innerWidth,
+      user_agent: navigator.userAgent,
+    });
     initCtaTracking();
     initScrollTracking();
     initDwellTracking();
