@@ -75,8 +75,8 @@ export default async function handler(req, res) {
       values
         (${vid}, ${mapped.name}, ${"hashcal"}, ${tracking.utm_source || null}, ${tracking.utm_medium || null},
          ${tracking.utm_campaign || null}, ${tracking.utm_content || null}, ${tracking.utm_term || null},
-         ${tracking.fbclid || null}, ${tracking.gclid || null}, ${JSON.stringify(mapped.meta)},
-         ${JSON.stringify(tracking)}, ${JSON.stringify(mapped.lead)})
+         ${tracking.fbclid || null}, ${tracking.gclid || null}, ${sql.json(mapped.meta || null)},
+         ${sql.json(tracking || null)}, ${sql.json(mapped.lead || null)})
     `;
 
     return res.status(204).end();

@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       values
         (${vid}, ${eventName}, ${page || null}, ${utm_source || null}, ${utm_medium || null}, ${utm_campaign || null},
          ${utm_content || null}, ${utm_term || null}, ${fbclid || null}, ${gclid || null},
-         ${meta ? JSON.stringify(meta) : null}, ${raw_params ? JSON.stringify(raw_params) : null})
+         ${sql.json(meta || null)}, ${sql.json(raw_params || null)})
     `;
 
     return res.status(204).end();
