@@ -23,6 +23,10 @@ function summarizeAnswers(answers) {
 }
 
 function mapEvent(payload) {
+  if (payload.event === "routing_form.viewed") {
+    return { name: "routing_form_view", meta: null, lead: null };
+  }
+
   if (payload.event === "form.submitted") {
     var qualified = payload.result && payload.result.type !== "custom_message" && payload.result.type !== "external_url";
     var summary = summarizeAnswers(payload.answers);
