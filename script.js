@@ -445,3 +445,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
+// Swap the hero video poster for the YouTube player on click
+document.querySelectorAll(".hero-video-poster").forEach((poster) => {
+  poster.addEventListener("click", () => {
+    const iframe = document.createElement("iframe");
+    iframe.src = poster.dataset.src;
+    iframe.title = "Video player";
+    iframe.allow =
+      "autoplay; fullscreen; encrypted-media; picture-in-picture";
+    iframe.allowFullscreen = true;
+    poster.replaceWith(iframe);
+  });
+});
